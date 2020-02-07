@@ -29,10 +29,10 @@ class Router {
     mtrAll(self){
         self.hosts.forEach((hostname) => {
             self.mtr(hostname)
-            .then((resolved) => {
+            .then(() => {
               console.log(self.getRoute(hostname));
-            }).catch((rejected) => {
-              console.log(rejected);
+            }).catch((error) => {
+              console.log(error);
             });
         });
     }
@@ -44,16 +44,16 @@ class Router {
         return this.routes;
     }
 
-    addRoute (route) {
-        var [host, hops] = route.split(':');
+    addRoute (host, hops) {
         var hops = hops.split(' ');
         if (!this.routes[host]) this.routes[host] = {};
         hops.forEach((ip, hop) => {
             if (!this.routes[host][hop]) this.routes[host][hop] = {};
             if (!this.routes[host][hop][ip]){
-                this.routes[host][hop][ip] = {};
-                this.routes[host][hop][ip]['asn']= this.getAsn(ip);
-                this.routes[host][hop][ip]['pkt']= 1;
+                this.routes[host][hop][ip] = {
+                    "asn": this.getAsn(ip),
+                    "pkt": 1
+                };
             }else{
                 this.routes[host][hop][ip]['pkt']++;
             }
@@ -68,9 +68,8 @@ class Router {
                 if (error != null){
                     reject(stderr);
                 }else{
-                    const route = hostname + ":" + stdout;
-                    self.addRoute(route);
-                    resolve(route);
+                    self.addRoute(hostname, stdout);
+                    resolve();
                 }
             });
         });
