@@ -1,6 +1,8 @@
 const util = require('util');
 const exec = util.promisify(require('child_process').exec);
 const Reader = require('@maxmind/geoip2-node').Reader;
+const sha1 = require('sha1');
+
 const MAXMIND_GEOLITE_DB='GeoLite2-ASN.mmdb';
 
 class Router {
@@ -8,8 +10,8 @@ class Router {
     constructor() {
         this.hosts = [];
         this.routes = {};
-        this.reader;
         const options = {};
+        this.reader;
         Reader.open(MAXMIND_GEOLITE_DB, options).then(reader => {
             this.reader = reader;
         }).catch((error)=>{
@@ -18,19 +20,16 @@ class Router {
         setInterval(this.mtrAll, 1000, this);
     }
 
-    setHosts(hosts){
-        this.hosts = hosts;
-    }
-
     addHost(hostname){
         this.hosts.push(hostname);
+        this.routes[hostname] = {};
     }
 
     mtrAll(self){
         self.hosts.forEach((hostname) => {
             self.mtr(hostname)
             .then(() => {
-              console.log(self.getRoute(hostname));
+              var route = self.getRoute(hostname)
             }).catch((error) => {
               console.log(error);
             });
@@ -40,22 +39,33 @@ class Router {
     getRoute(hostname){
         return this.routes[hostname];
     }
+
     getRouteAll(){ 
         return this.routes;
     }
 
-    addRoute (host, hops) {
-        var hops = hops.split(' ');
-        if (!this.routes[host]) this.routes[host] = {};
-        hops.forEach((ip, hop) => {
-            if (!this.routes[host][hop]) this.routes[host][hop] = {};
-            if (!this.routes[host][hop][ip]){
-                this.routes[host][hop][ip] = {
+    addRoute (hostname, hops) {
+        const now = Date.now();
+        const hash = sha1(hops);
+        const splittedHops = hops.split(' ');        
+        if (!this.routes[hostname][hash]){
+            this.routes[hostname][hash] = { 
+                "created" : now,
+                "updated" : now,
+                "hopsRaw" : hops,
+                "packets" : 0, 
+                "hops" : {} 
+            };
+        }
+        this.routes[hostname][hash]['updated'] = now;
+        this.routes[hostname][hash]['packets']++;
+        splittedHops.forEach((ip, i) => {
+            if (!this.routes[hostname][hash]["hops"]) this.routes[hostname][hash]["hops"] = {};
+            if (!this.routes[hostname][hash]["hops"][ip])
+            {
+                this.routes[hostname][hash]["hops"][ip] = {
                     "asn": this.getAsn(ip),
-                    "pkt": 1
                 };
-            }else{
-                this.routes[host][hop][ip]['pkt']++;
             }
         });
     }
@@ -77,7 +87,7 @@ class Router {
     getAsn(ip){
         var asn;
         try{ asn = this.reader.asn(ip); }catch{};
-        return asn ? (asn.autonomousSystemNumber + "_" + asn.autonomousSystemOrganization.replace(/\s/g,'_')) : '';
+        return asn ? (asn.autonomousSystemNumber + "_" + asn.autonomousSystemOrganization.replace(/\s/g,'_')) : 'local';
     }
 }
 

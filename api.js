@@ -13,7 +13,12 @@ const server = http.createServer((req, res) => {
   res.setHeader('Content-Type', 'application/json');
   const query = url.parse(req.url,true).query;
   res.statusCode = 200;
-  res.end(JSON.stringify(routes.getRoute(query.hostname)));
+  res.end(JSON.stringify(
+      {
+          "hostname" : query.hostname
+        , "routes" : routes.getRoute(query.hostname)
+      }
+  ));
 });
 
 server.listen(port, hostname, () => {

@@ -5,7 +5,8 @@
   "main": "app.js",
   "dependencies": {
     "@maxmind/geoip2-node": "^1.4.0",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "sha1": "^1.1.1"
   },
   "devDependencies": {},
   "scripts": {
