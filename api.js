@@ -1,13 +1,15 @@
 const http = require('http');
 const url = require('url');
 const Router = require('./router.js');
+const fs = require('fs');
 
 const hostname = '0.0.0.0';
 const port = 8080;
-var routes = new Router();
 
-routes.addHost("8.8.8.8");
-routes.addHost("westwing.de");
+const config = JSON.parse(fs.readFileSync('config/hosts.json'));
+
+var router = new Router();
+router.addHosts(config.hosts);
 
 const server = http.createServer((req, res) => {
   res.setHeader('Content-Type', 'application/json');
@@ -16,7 +18,7 @@ const server = http.createServer((req, res) => {
   res.end(JSON.stringify(
       {
           "hostname" : query.hostname
-        , "routes" : routes.getRoute(query.hostname)
+        , "routes" : router.getRoute(query.hostname)
       }
   ));
 });

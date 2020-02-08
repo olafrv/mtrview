@@ -20,6 +20,12 @@ class Router {
         setInterval(this.mtrAll, 1000, this);
     }
 
+    addHosts(hosts){
+        hosts.forEach((host,i) => {
+            this.addHost(host);
+        });
+    }
+
     addHost(hostname){
         this.hosts.push(hostname);
         this.routes[hostname] = {};
