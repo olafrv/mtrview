@@ -88,7 +88,7 @@ class Router {
     getAsn(ip){
         var asn;
         try{ asn = this.reader.asn(ip); }catch{};
-        return asn ? (asn.autonomousSystemNumber + "_" + asn.autonomousSystemOrganization.replace(/\s/g,'_')) : 'local';
+        return asn ? (asn.autonomousSystemNumber + "_" + asn.autonomousSystemOrganization.replace(/\s/g,'_')) : 'Unknown';
     }
 }
 
