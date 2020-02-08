@@ -68,10 +68,11 @@ class Router {
         this.routes[hostname][hash]['packets']++;
         splittedHops.forEach((ip, i) => {
             if (!this.routes[hostname][hash]["hops"]) this.routes[hostname][hash]["hops"] = {};
-            if (!this.routes[hostname][hash]["hops"][ip])
+            if (!this.routes[hostname][hash]["hops"][i])
             {
-                this.routes[hostname][hash]["hops"][ip] = {
-                    "asn": this.getAsn(ip),
+                this.routes[hostname][hash]["hops"][i] = {
+                    "ip": ip,
+                    "asn": this.getAsn(ip)
                 };
             }
         });
@@ -86,6 +87,7 @@ class Router {
                     reject(stderr);
                 }else{
                     self.addRoute(hostname, stdout);
+                    console.debug(hostname + " - " + stdout)
                     resolve();
                 }
             });
