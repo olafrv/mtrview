@@ -52,8 +52,9 @@ class Router {
             this.routes[hostname][hash] = { 
                 "created" : now,
                 "updated" : now,
-                "hopsRaw" : hops,
                 "packets" : 0, 
+                "hopsCount" : splittedHops.length,
+                "hopsRaw" : hops,
                 "hops" : {} 
             };
         }
