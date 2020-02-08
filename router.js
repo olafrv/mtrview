@@ -4,7 +4,6 @@ const Reader = require('@maxmind/geoip2-node').Reader;
 const sha1 = require('sha1');
 const _ = require('lodash'); 
 
-const MAXMIND_GEOLITE_DB='GeoLite2-ASN.mmdb';
 const DEFAULT_MTR_OPTIONS='-n -l -c 1 -4'; // udp
 
 class Router {
@@ -13,7 +12,7 @@ class Router {
         this.config = config;
         this.routes = {};
         this.reader;
-        Reader.open(MAXMIND_GEOLITE_DB, {}).then(reader => {
+        Reader.open(config.maxmind, {}).then(reader => {
             this.reader = reader;
         }).catch((error)=>{
             console.log(error);

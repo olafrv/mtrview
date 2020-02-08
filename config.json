@@ -3,6 +3,7 @@
       "address" : "0.0.0.0",
       "port" : "8080"
     },
+    "maxmind" : "GeoLite2-ASN_20200128/GeoLite2-ASN.mmdb;",
     "hosts": { 
           "8.8.8.8" : "udp"
         , "www.google.com" : "tcp/443"
