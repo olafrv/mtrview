@@ -1,0 +1,16 @@
+{
+    "server" : {
+      "address" : "0.0.0.0",
+      "port" : "8080"
+    },
+    "hosts": { 
+          "8.8.8.8" : "udp"
+        , "www.google.com" : "tcp/443"
+        , "www.westwing.de" : ""
+    },
+    "mtrOptions" : {
+          "udp" : "-n -l -c 1 -4"
+        , "tcp/80" : "-n -l -c 1 -4 --port 80"
+        , "tcp/443" : "-n -l -c 1 -4 --port 443"
+    }
+}

@@ -3,26 +3,20 @@ const url = require('url');
 const Router = require('./router.js');
 const fs = require('fs');
 
-const hostname = '0.0.0.0';
-const port = 8080;
+const config = JSON.parse(fs.readFileSync('config.json'));
 
-const config = JSON.parse(fs.readFileSync('config/hosts.json'));
-
-var router = new Router();
-router.addHosts(config.hosts);
+const router = new Router(config);
 
 const server = http.createServer((req, res) => {
   res.setHeader('Content-Type', 'application/json');
   const query = url.parse(req.url,true).query;
   res.statusCode = 200;
-  res.end(JSON.stringify(
-      {
+  res.end(JSON.stringify({
           "hostname" : query.hostname
-        , "routes" : router.getRoute(query.hostname)
-      }
-  ));
+        , "routes" : router.getRoutes(query.hostname)
+  }));
 });
 
-server.listen(port, hostname, () => {
-  console.log(`http://${hostname}:${port}/`);
+server.listen(config.server.port, config.server.address, () => {
+  console.log("Listening: " + config.server.address + ":" + config.server.port);
 });
