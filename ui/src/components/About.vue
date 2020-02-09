@@ -1,13 +1,5 @@
 <template>
-  <v-container>
-    <v-layout>
-        About
-    </v-layout>
-  </v-container>
+  <div class="about">
+    <h1>This is an about page</h1>
+  </div>
 </template>
-
-<script>
-export default {
-    
-}
-</script>
