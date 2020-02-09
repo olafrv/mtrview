@@ -23,8 +23,8 @@ config.json
 Run the mtrview api server (DEBUG logging):
 ```
 ENV=DEBUG nodemon api.js
-nodemon api.js
 ```
+
 Run the mtrview api server in production:
 ```
 nodejs api.js
