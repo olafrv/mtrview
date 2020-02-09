@@ -1,8 +1,8 @@
 ### Installation
 
-**NOTE:** This steps are tested on [Ubuntu 16.04 LTS]((http://releases.ubuntu.com/16.04/)).
+**NOTE:** This steps are tested on [Ubuntu 16.04 LTS](http://releases.ubuntu.com/16.04/).
 
-Install nodejs following the [official manual]((https://github.com/nodesource/distributions/blob/master/README.md)).
+Install nodejs following the [official manual](https://github.com/nodesource/distributions/blob/master/README.md).
 
 Install [nodemon]((https://www.npmjs.com/package/nodemon)) globally as root user:
 ```
