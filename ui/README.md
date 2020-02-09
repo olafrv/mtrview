@@ -34,7 +34,7 @@ Install docker as described in the [official documentation](https://docs.docker.
 sudo docker-build . -t mtr-ui
 sudo docker run mtr-ui
 sudo docker run -d -p 8080:80 --name mtr-ui mtr-ui
-sudo docker stop mtr-ui
+sudo docker [stop|start] mtr-ui
 ```
 
 ### Lints and fixes files
