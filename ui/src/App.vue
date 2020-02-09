@@ -1,16 +1,18 @@
 <template>
-  <div id="app">
-    <Graph/>
-  </div>
+<v-app>
+  <v-content>
+    <router-link to="/graph">Graph</router-link>
+    <router-view></router-view>
+  </v-content>
+  <v-footer app>
+    1111
+  </v-footer>
+</v-app>
 </template>
 
 <script>
-import Graph from './components/Graph.vue'
 export default {
-  name: 'App', 
-  components: {
-    Graph
-  }
+  name: 'App'
 }
 </script>
 

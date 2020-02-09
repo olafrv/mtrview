@@ -36,4 +36,7 @@ http://<server>:<port>/?hostname=<host>
 ```
 
 ### References
+
 * [man mtr](https://linux.die.net/man/8/mtr)
+* [Internet Routing and Traffic Engineering](https://aws.amazon.com/blogs/architecture/internet-routing-and-traffic-engineering/)
+* [A Practical Guide to (Correctly) Troubleshooting with Traceroute](https://archive.nanog.org/meetings/nanog45/presentations/Sunday/RAS_traceroute_N45.pdf)
