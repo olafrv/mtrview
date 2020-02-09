@@ -36,4 +36,4 @@ http://<server>:<port>/?hostname=<host>
 ```
 
 ### References
-* man mtr
+* [man mtr](https://linux.die.net/man/8/mtr)
