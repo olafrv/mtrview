@@ -4,7 +4,7 @@
 
 Install nodejs following the [official manual](https://github.com/nodesource/distributions/blob/master/README.md).
 
-Install [nodemon]((https://www.npmjs.com/package/nodemon)) globally as root user:
+Install [nodemon](https://www.npmjs.com/package/nodemon) globally as root user:
 ```
 sudo npm install -g nodemon
 sudo apt install mtr
