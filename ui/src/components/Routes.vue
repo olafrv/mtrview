@@ -2,6 +2,9 @@
   <v-data-table
     v-model="selected"
     :headers="headers"
+    :sort-by="['updated', 'created']"
+    :sort-desc="[true, true]"
+    multi-sort
     :items="routes"
     :single-select="singleSelect"
     item-key="hash"
@@ -22,8 +25,7 @@
       fetchData(){
         var self = this;
         axios.get(
-            'http://192.168.2.225:8081?hostname=www.google.com',
-            { crossDomain: true }
+            'http://192.168.2.225:8081?hostname=8.8.8.8'
           ).then(function (response) {
             let routes = [];
             let data = response.data.routes;
