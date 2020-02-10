@@ -20,13 +20,13 @@ export const store = new Vuex.Store({
   actions: {
     updateRoutes : ({ commit }) => {
       setInterval(() => {
-        Axios.get('http://192.168.2.225:8081?config=hosts')
+        Axios.get('http://192.168.2.225:8081?config=hosts&time='+Date.now())
         .then((response) => {  
           commit('setHosts', response.data.hosts);
           let p = [];
           for(let host in response.data.hosts){
             p.push(new Promise((resolve,reject) => {
-              Axios.get('http://192.168.2.225:8081?hostname=' + host)
+              Axios.get('http://192.168.2.225:8081?hostname=' + host+"&time="+Date.now())
                 .then((response) => {    
                   resolve(response.data);
                 })
