@@ -10,20 +10,21 @@ export default {
     fetchData() {
       var self = this;
       axios.get(
-          'http://192.168.2.225:8081?hostname=8.8.8.8',
+          'http://192.168.2.225:8081?hostname=www.google.com',
           { crossDomain: true }
         ).then((response) => {
           let nodes = [];
           let edges = [];
+          let n = 1;
           for(let hash in response.data.routes){
-            let n = 1;
-            for(let i in response.data.routes[hash].hops){
+              for(let i in response.data.routes[hash].hops){
               nodes.push(
                 { id : n , label : response.data.routes[hash].hops[i].ip }
               );
               edges.push({from: n, to: (n+1)});
               n++;
             }
+            n++;
           }
           self.nodes.update(
             //[{id: 1, label: 'Node 1'}, {id: 2, label: 'Node 2'}, {id: 3, label: 'Node 3'}, {id: 4, label: 'Node 4'}, {id: 5, label: 'Node 5'}]
