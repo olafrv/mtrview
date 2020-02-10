@@ -11,6 +11,7 @@ const server = http.createServer((req, res) => {
   res.setHeader('Content-Type', 'application/json');
   const query = url.parse(req.url,true).query;
   res.statusCode = 200;
+  res.setHeader("Access-Control-Allow-Origin", "*");
   res.end(JSON.stringify({
           "hostname" : query.hostname
         , "routes" : router.getRoutes(query.hostname)

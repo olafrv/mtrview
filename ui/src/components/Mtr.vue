@@ -1,13 +1,17 @@
 <template>
-  <Graph/>
+  <v-container fluid>
+    <Graph/>
+    <Routes/>
+  </v-container>
 </template>
 
 <script>
-import Graph from '@/components/Graph.vue'
+import Graph from '@/components/Graph.vue';
+import Routes from '@/components/Routes.vue';
 export default {
-  name: "Mtr",
   components : {
-    Graph
+    Graph,
+    Routes
   }
 }
 </script>

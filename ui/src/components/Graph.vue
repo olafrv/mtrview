@@ -24,8 +24,8 @@ export default {
 </script>
 <style scoped>
    #mynetwork {
-      width: 600px;
-      height: 400px;
+      width: 500px;
+      height: 300px;
       border: 1px solid lightgray;
     }
 </style>
