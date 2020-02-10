@@ -12,6 +12,9 @@ export default {
   components : {
     Graph,
     Routes
+  },
+  mounted : () => {
+    
   }
 }
 </script>

@@ -10,12 +10,16 @@ const router = new Router(config);
 const server = http.createServer((req, res) => {
   res.setHeader('Content-Type', 'application/json');
   const query = url.parse(req.url,true).query;
-  res.statusCode = 200;
   res.setHeader("Access-Control-Allow-Origin", "*");
-  res.end(JSON.stringify({
-          "hostname" : query.hostname
-        , "routes" : router.getRoutes(query.hostname)
-  }));
+  res.statusCode = 200;
+  if (query.hostname){
+    res.end(JSON.stringify({
+            "hostname" : query.hostname
+          , "routes" : router.getRoutes(query.hostname)
+    }));
+  }else if(query.config && query.config=="hosts"){
+    res.end(JSON.stringify({"hosts":config.hosts}));
+  }
 });
 
 server.listen(config.server.port, config.server.address, () => {

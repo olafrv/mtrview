@@ -18,31 +18,29 @@
 </template>
 
 <script>
-  const axios = require('axios');
   const dateFormat = require('dateformat');
   export default {
     methods : {
       fetchData(){
-        var self = this;
-        axios.get(
-            'http://192.168.2.225:8081?hostname=8.8.8.8'
-          ).then(function (response) {
-            let routes = [];
-            let data = response.data.routes;
-            for(let hash in data){
-                let route = {};
-                route.hash = data[hash].hash.substring(data[hash].hash.length - 6) ;
-                route.created = dateFormat(data[hash].created, "isoDateTime");
-                route.updated = dateFormat(data[hash].updated, "isoDateTime");
-                route.packets = data[hash].packets;
-                route.hops = data[hash].hopsUniq.join(' - ');
-                routes.push(route);
+        let self = this;
+        let hostname = this.$route.params.hostname;
+        let rows = [];
+        for(let i in this.$store.getters.routes){
+          let data = this.$store.getters.routes[i];
+          if (data["hostname"]==hostname){
+            for(let hash in data["routes"]){
+              let row = {};
+              let route = data["routes"][hash];
+              row.hash = route.hash.substring(route.hash.length - 6) ;
+              row.created = dateFormat(route.created, "isoDateTime");
+              row.updated = dateFormat(route.updated, "isoDateTime");
+              row.packets = route.packets;
+              row.hops = route.hopsUniq.join(' - ');
+              rows.push(row);
             }
-            self.routes = routes;
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
+          }
+        }
+        self.routes = rows;
       }
     },
     created () {

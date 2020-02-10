@@ -8,9 +8,10 @@ const axios = require('axios');
 export default {
   methods : {
     fetchData() {
-      var self = this;
+      let self = this;
+      let hostname = this.$route.params.hostname;
       axios.get(
-          'http://192.168.2.225:8081?hostname=8.8.8.8'
+          'http://192.168.2.225:8081?hostname=' + hostname
         ).then((response) => {
           let nodes = [];
           let edges = [];
@@ -32,10 +33,11 @@ export default {
         .catch(function (error) {
           console.log(error);
         });
-    }
+    },
   },
   created: function () {
     this.fetchData();
+    this.$store.dispatch("updateRoutes");
   },
   data: function (){
     return {
