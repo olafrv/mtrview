@@ -7,7 +7,7 @@ Vue.use(Vuex);
 export const store = new Vuex.Store({
   state: {
     hosts: {},
-    routes: {}
+    routes: {},
   },
   mutations: {
     setHosts (state, hosts) {

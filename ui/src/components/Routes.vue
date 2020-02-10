@@ -20,9 +20,25 @@
 <script>
   const dateFormat = require('dateformat');
   export default {
+    data () {
+      return {
+        singleSelect: true,
+        selected: [],
+        headers: [
+          { text: 'Hash', value: 'hash', align: 'left', sortable: false },
+          { text: 'Created', value: 'created' },
+          { text: 'Updated', value: 'updated' },
+          { text: 'Packets', value: 'packets' },
+          { text: 'Hops', value: 'hops' },
+        ],
+        routes: [],
+      }
+    },
+    created () {
+      this.timer = setInterval(this.fetchData, 1000);
+    },
     methods : {
       fetchData(){
-        let self = this;
         let hostname = this.$route.params.hostname;
         let rows = [];
         for(let i in this.$store.getters.routes){
@@ -35,35 +51,12 @@
               row.created = dateFormat(route.created, "isoDateTime");
               row.updated = dateFormat(route.updated, "isoDateTime");
               row.packets = route.packets;
-              row.hops = route.hopsUniq.join(' - ');
+              row.hops = route.hopsUniq.join(', ');
               rows.push(row);
             }
           }
         }
-        self.routes = rows;
-      }
-    },
-    created () {
-      this.fetchData();
-      this.timer = setInterval(this.fetchData, 1000);
-    },
-    data () {
-      return {
-        singleSelect: true,
-        selected: [],
-        headers: [
-          {
-            text: 'Hash',
-            align: 'left',
-            sortable: false,
-            value: 'hash',
-          },
-          { text: 'Created', value: 'created' },
-          { text: 'Updated', value: 'updated' },
-          { text: 'Packets', value: 'packets' },
-          { text: 'Hops', value: 'hops' },
-        ],
-        routes: [],
+        this.routes = rows;
       }
     },
   }
