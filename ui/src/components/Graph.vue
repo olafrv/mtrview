@@ -1,5 +1,7 @@
 <template>
   <div>
+    Endpoint: {{ this.$route.params.hostname }}
+    <br>
     <div ref="mynetwork" id="mynetwork"></div>
     <br>
     Updated: {{ updated }}, Routes: {{ routeCount }}
@@ -13,6 +15,7 @@ const dateFormat = require('dateformat');
 export default {
   data: function (){
     return {
+      network : null,
       nodes : new Vis.DataSet([]),
       edges : new Vis.DataSet([]),
       updated: "",
@@ -34,19 +37,25 @@ export default {
   },
   watch: {
     routeCount () {
-      this.$data.updated = dateFormat(Date.now(), "isoDateTime");
+      this.fetchData();
+    },
+    $route(){
+      this.nodes = new Vis.DataSet([]),
+      this.edges = new Vis.DataSet([]),
+      window.VIS_NETWORK.setData({nodes:this.nodes, edges:this.edges}); 
       this.fetchData();
     }
   },
   created: function () {
-    this.$store.dispatch("updateRoutes"); // SetInterval triggered!
-    //this.timer = setInterval(this.fetchData, 1000);
+    this.$store.dispatch("updateHosts");
+    this.$store.dispatch("updateRoutes");
   },
   mounted: function (){
-    new Vis.Network(this.$refs.mynetwork, {nodes:this.nodes, edges:this.edges}, this.options);
+    window.VIS_NETWORK = new Vis.Network(this.$refs.mynetwork, {nodes:this.nodes, edges:this.edges}, this.options);
   },
   methods : {
     fetchData() {
+      this.$data.updated = dateFormat(Date.now(), "isoDateTime");
       let hostname = this.$route.params.hostname;
       let nodes = [];
       let edges = [];

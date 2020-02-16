@@ -2,7 +2,7 @@
   "name": "nodejs",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "api.js",
   "dependencies": {
     "@maxmind/geoip2-node": "^1.4.0",
     "lodash": "^4.17.15",
@@ -10,7 +10,8 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "ENV=DEBUG nodemon api.js",
+    "serve": "nodejs api.js"
   },
   "author": "",
   "license": "ISC"

@@ -14,9 +14,9 @@
     </template>
     <v-list>
       <v-list-item
-        v-for="(item, index) in items"
+        v-for="(item, index) in endpoints"
         :key="index"
-        @click="xxx"
+        @click="goto(item.title)"
       >
         <v-list-item-title>{{ item.title }}</v-list-item-title>
       </v-list-item>
@@ -26,18 +26,28 @@
 
 <script>
 export default {
-  methods: {
-    xxx : function () {
-      alert(1);
+  data: () => ({
+    endpoints: [],
+  }),
+  computed: {
+    items (){
+      let hosts = this.$store.getters.hosts;
+      let items = [];
+      for(let host in hosts){
+        if (host != this.$route.params.hostname) items.push({'title':host});
+      }
+      return items;
     }
   },
-  data: () => ({
-    items: [
-      { title: 'Click Me1' },
-      { title: 'Click Me2' },
-      { title: 'Click Me3' },
-      { title: 'Click Me4' },
-    ],
-  })
+  watch : {
+    items (){
+      this.endpoints = this.items;
+    }
+  },
+  methods : {
+    goto (url) {
+      this.$router.push(url);
+    }
+  }
 }
 </script>
