@@ -31,7 +31,7 @@ serve -s dist
 
 Install docker as described in the [official documentation](https://docs.docker.com/install/linux/docker-ce/ubuntu/), then:
 ```
-sudo docker-build . -t mtr-ui
+sudo docker build . -t mtr-ui
 sudo docker run mtr-ui
 sudo docker run -d -p 8080:80 --name mtr-ui mtr-ui
 sudo docker [stop|start] mtr-ui
