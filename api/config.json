@@ -7,7 +7,7 @@
     "hosts": { 
           "8.8.8.8" : "udp"
         , "www.google.com" : "tcp/443"
-        , "www.westwing.de" : ""
+        , "www.westwing.de" : "tcp/443"
     },
     "mtrOptions" : {
           "udp" : "-n -l -c 1 -4"
