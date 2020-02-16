@@ -25,6 +25,12 @@ serve -s dist
 sudo npm install -g serve
 serve -s dist
 ```
+
+Visit the mtr UI endpoint:
+```
+http://<server>:<port>/
+```
+
 ### Docker production build (./dist)
 
 **NOTE:** This section is based on https://cli.vuejs.org/guide/deployment.html

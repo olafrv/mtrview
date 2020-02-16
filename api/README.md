@@ -30,7 +30,7 @@ Run the mtrview api server in production:
 npm run serve
 ```
 
-Visite the api endpoint (JSON):
+Visit the mtrview api endpoint (JSON):
 ```
 http://<server>:<port>/?hostname=<host>
 ```
